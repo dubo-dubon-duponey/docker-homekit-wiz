@@ -24,7 +24,7 @@ RUN           arch="${TARGETPLATFORM#*/}"; \
 # hadolint ignore=DL3006
 FROM          --platform=$BUILDPLATFORM $BUILDER_BASE                                                                   AS builder
 
-ARG           VERSION="ba53eba7b4ad50315dc2ff076443a80227396443"
+ARG           VERSION="921d55821054fcf5841ebe99c521831894f843ea"
 
 WORKDIR       $GOPATH/src/github.com/dubo-dubon-duponey/wizhard
 RUN           git clone https://github.com/dubo-dubon-duponey/wizhard .
