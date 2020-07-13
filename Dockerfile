@@ -17,6 +17,7 @@ RUN           arch="${TARGETPLATFORM#*/}"; \
               env GOOS=linux GOARCH="${arch%/*}" go build -v -ldflags "-s -w" \
                 -o /dist/boot/bin/http-health ./cmd/http
 
+
 ##########################
 # Builder custom
 # Custom steps required to build this specific image
