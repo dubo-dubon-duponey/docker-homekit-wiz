@@ -1,7 +1,3 @@
-variable "REGISTRY" {
-  default = "docker.io"
-}
-
 target "default" {
   inherits = ["shared"]
   args = {
@@ -9,6 +5,6 @@ target "default" {
     BUILD_DESCRIPTION = "Control your Wiz bulbs with HomeKit"
   }
   tags = [
-    "${REGISTRY}/dubodubonduponey/homekit-wiz",
+    "dubodubonduponey/homekit-wiz",
   ]
 }
