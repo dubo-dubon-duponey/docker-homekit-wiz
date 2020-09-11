@@ -25,11 +25,12 @@ RUN           env GOOS=linux GOARCH="$(printf "%s" "$TARGETPLATFORM" | sed -E 's
 # hadolint ignore=DL3006
 FROM          --platform=$BUILDPLATFORM $BUILDER_BASE                                                                   AS builder
 
-ARG           VERSION="921d55821054fcf5841ebe99c521831894f843ea"
+ARG           GIT_REPO=github.com/dubo-dubon-duponey/wizhard
+ARG           GIT_VERSION=a24ebf27a5f4fb307d6c735bd80675bdc1be86f1
 
-WORKDIR       $GOPATH/src/github.com/dubo-dubon-duponey/wizhard
-RUN           git clone https://github.com/dubo-dubon-duponey/wizhard .
-RUN           git checkout $VERSION
+WORKDIR       $GOPATH/src/$GIT_REPO
+RUN           git clone git://$GIT_REPO .
+RUN           git checkout $GIT_VERSION
 
 # hadolint ignore=DL4006
 RUN           env GOOS=linux GOARCH="$(printf "%s" "$TARGETPLATFORM" | sed -E 's/^[^/]+\/([^/]+).*/\1/')" go build -v -ldflags "-s -w" \
