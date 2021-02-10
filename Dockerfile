@@ -9,14 +9,15 @@ FROM          --platform=$BUILDPLATFORM $BUILDER_BASE                           
 
 ARG           GIT_REPO=github.com/dubo-dubon-duponey/healthcheckers
 ARG           GIT_VERSION=51ebf8ca3d255e0c846307bf72740f731e6210c3
+ARG           BUILD_TARGET=./cmd/http
+ARG           BUILD_OUTPUT=http-health
 
 WORKDIR       $GOPATH/src/$GIT_REPO
 RUN           git clone git://$GIT_REPO .
 RUN           git checkout $GIT_VERSION
 # hadolint ignore=DL4006
 RUN           env GOOS=linux GOARCH="$(printf "%s" "$TARGETPLATFORM" | sed -E 's/^[^/]+\/([^/]+).*/\1/')" go build -v -ldflags "-s -w" \
-                -o /dist/boot/bin/http-health ./cmd/http
-
+                -o /dist/boot/bin/"$BUILD_OUTPUT" "$BUILD_TARGET"
 
 ##########################
 # Builder custom
@@ -26,7 +27,7 @@ RUN           env GOOS=linux GOARCH="$(printf "%s" "$TARGETPLATFORM" | sed -E 's
 FROM          --platform=$BUILDPLATFORM $BUILDER_BASE                                                                   AS builder
 
 ARG           GIT_REPO=github.com/dubo-dubon-duponey/wizhard
-ARG           GIT_VERSION=a24ebf27a5f4fb307d6c735bd80675bdc1be86f1
+ARG           GIT_VERSION=fe5ca1affee5756a13cfdfd6ee777eb59f34cedb
 
 WORKDIR       $GOPATH/src/$GIT_REPO
 RUN           git clone git://$GIT_REPO .
